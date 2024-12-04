@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage[czech]{babel}
 \usepackage{csquotes}
+\usepackage{tabularx}
 
 \title{IMP - Řízení spotřeby energie mikrokontroléru}
 \author{Martin Slezák (xsleza26)}
@@ -23,5 +24,64 @@ některých z těchto prostředků byla sestavena vestavěná aplikace.
 
 V této sekci budou popsány jednotlivé režimy napájení a funkcionalita
 jednotlivých modulů v těchto režimech.
+
+\subsection{Režimy napájení}
+
+Řadič správy napájení nabízí různé možnosti, pro optimalizaci spotřeby energie
+na základě požadované úrovně funkčnosti.
+
+Podle nároků na režim zastavení aplikace existují různé režimy, které umožňují
+zachování stavu, částečné vypnutí nebo úplné vypnutí vybraných logických
+obvodů, případně i paměti. Stavy I/O (vstupy a výstupy) jsou zachovány ve všech
+režimech.
+
+Existují tři hlavní režimy činnosti: běhový (run), čekací (wait), zastavovací
+(stop). Pomocí instrukce WFI (Wait For Interrupt) se čip přepne do čekacího
+nebo zastavovacího režimu.
+
+Pro každý běhový (run) režim existují odpovídající čekací (wait) a zastavovací
+(stop) režimy. Čekací (wait) režim se podobá režimu spánku procesorů ARM.
+Zastavovací (stop) jsou podobné hlubokému spánku ARM procesorů.
+
+Existuje také režim velmi nízkého výkonu (VLPR), který umožňuje výrazně snížit
+spotřebu během provozu v případě, že aplikace nepotřebuje maximální frekvenci
+sběrnice.
+
+\subsubsection{Normální režim}
+
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.09\textwidth}|X|}
+    \hline
+    \textbf{Režim} & \textbf{Popis} \\
+    \hline
+    Run & Maximální výkon čipu. Defaultní režim po resetu. Zapnutý regulátor
+    napětí \\
+    \hline
+    Wait & Jádro je uspané, periferie fungují. NVIC zůstává citlivý na
+    přerušení \\
+    \hline
+    Stop & Čip v statickém stavu. Režim nejnižší spotřeby zachovávající stavy
+    všech registrů. NVIC je zakázán, AWIC k probuzení z přerušení. Periferie
+    nefungují \\
+    \hline
+\end{tabularx}
+
+\subsubsection{Režim velmi nízkého výkonu}
+
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.09\textwidth}|X|}
+    \hline
+    \textbf{Režim} & \textbf{Popis} \\
+    \hline
+    Run & Regulátor napětí v režimu nízké spotřeby (dostatek energie pro
+    provoz při snížené frekvenci). Snížená frekvence režimu přístupu Flash.
+    LVD vypnuto. Interní oscilátor poskytuje nízkovýkonový zdroj pro jádro,
+    sběrnici a taky periferií \\
+    \hline
+    Wait & Stejné jako run s jádrem v režimu spánku \\
+    \hline
+    Stop & Čip v statickém stavu, vypnutý provoz LVD. Režim nejnižší spotřeby
+    ADC a funkčním přerušením pinů. Periferie nefungují, lze využít RTC,
+    CMP,... NVIC je zakázán, AWIC k probuzení z přerušní. \\
+    \hline
+\end{tabularx}
 
 \end{document}
