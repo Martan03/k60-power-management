@@ -13,6 +13,12 @@
 
 \maketitle
 
+\newpage
+
+\tableofcontents
+
+\newpage
+
 \section{Úvod}
 
 Tento projekt řeší řízení spotřeby energie mikrokontroléru, konkrétně na
@@ -30,7 +36,7 @@ Mikrokontrolér v mnoha případech pouze čeká a samotná činnost se vykoná 
 například po stisku klávesy nebo jednou za čas. V takové chvíli je zbytečné,
 aby mikrokontrolér běžel, jelikož stále využívá energie.
 
-\subsection*{Jádro mikrokontroléru}
+\subsection{Jádro mikrokontroléru}
 
 Jádro mikrokontroléru je nejvíce náročné na energii. Je tedy plýtváním energie
 nechat jádro běžet zbytečně a nebo naopak moc rychle. V případě, že jádro čeká
@@ -43,7 +49,7 @@ větší spotřebu jádra, avšak akce bude dokončena rychleji a jádro lze pot
 uspat, zatímco menší frekvence způsobí menší spotřebu, ale akce bude trvat
 déle.
 
-\subsection*{Paměť}
+\subsection{Paměť}
 
 Existují různé druhy paměti. Tyto paměti poté mají i různou spotřebu energie a
 různou rychlost čtení či zápisu. Na základě těchto faktorů je vhodné zvolit
@@ -51,7 +57,7 @@ paměť, která nám bude dostačovat pro řešení našeho problému a bude mí
 nejmenší spotřebu. Například paměť RAM má menší spotřebu než paměť Flash. Tyto
 rozdíly jsou však téměř zanedbatelné.
 
-\subsection*{Periferie}
+\subsection{Periferie}
 
 Některé periferie nemusí být v aplikaci použiti, je proto vhodné vypnout jejich
 hodinový signál, čímž periferii vypneme. V opačném případě, že periferii lze
@@ -64,11 +70,6 @@ minimalizovat práci jádra.
 TODO
 
 \section{Řízení spotřeby}
-
-V této sekci jsou popsány jednotlivé režimy napájení, které umožňuje platforma
-FITkit3, a funkcionalita jednotlivých modulů v těchto režimech.
-
-\subsection{Režimy napájení}
 
 Mikrokontrolér obsahuje řadič správy napájení, který nabízí různé možnosti, jak
 řídit spotřebu energie. Tato úspora je na základě požadované úrovně funkčnosti,
@@ -92,7 +93,7 @@ Existuje také režim velmi nízkého výkonu (VLPR), který umožňuje výrazn�
 spotřebu během provozu v případě, že aplikace nepotřebuje maximální frekvenci
 sběrnice.
 
-\subsubsection{Normální režim}
+\subsection{Normální režim}
 
 \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.09\textwidth}|X|}
     \hline
@@ -110,7 +111,7 @@ sběrnice.
     \hline
 \end{tabularx}
 
-\subsubsection{Režim velmi nízkého výkonu}
+\subsection{Režim velmi nízkého výkonu}
 
 \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.09\textwidth}|X|}
     \hline
