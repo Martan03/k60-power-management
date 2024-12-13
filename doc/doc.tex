@@ -17,23 +17,68 @@
 
 Tento projekt řeší řízení spotřeby energie mikrokontroléru, konkrétně na
 mikrokontroléru FITkit3. Tento mikrokontrolér podporuje několik způsobů, jak
-řídit spotřebu. Tyto způsoby budou popsány v následující sekci. Pomocí
-některých z těchto prostředků byla sestavena vestavěná aplikace.
+řídit spotřebu. V tomto projektu je popsáno, proč se spotřeba na
+mikrokontroléru řídí a jak jednotlivé způsoby úspory energie fungují. Nakonec
+na základě některých z těchto prostředků byla sestavena vestavěná aplikace.
+
+\section{Proč řídit spotřebu}
+
+Téměř v každé domácnosti se vyskytuje desítky mikrokontrolérů, které se mohou
+vyskytovat například v pračce, lednici ale i v dalších mnoha zařízeních.
+
+Mikrokontrolér v mnoha případech pouze čeká a samotná činnost se vykoná až
+například po stisku klávesy nebo jednou za čas. V takové chvíli je zbytečné,
+aby mikrokontrolér běžel, jelikož stále využívá energie.
+
+\subsection*{Jádro mikrokontroléru}
+
+Jádro mikrokontroléru je nejvíce náročné na energii. Je tedy plýtváním energie
+nechat jádro běžet zbytečně a nebo naopak moc rychle. V případě, že jádro čeká
+na nějakou událost, se jádro uspí. Jakmile daná událost nastane, je jádro
+probuzeno například přerušením (asynchronní) a nebo po uplynutí daného času
+(synchronní).
+
+Je však třeba najít ideální rychlost jádra. Moc velká frekvence jádra způsobí
+větší spotřebu jádra, avšak akce bude dokončena rychleji a jádro lze poté
+uspat, zatímco menší frekvence způsobí menší spotřebu, ale akce bude trvat
+déle.
+
+\subsection*{Paměť}
+
+Existují různé druhy paměti. Tyto paměti poté mají i různou spotřebu energie a
+různou rychlost čtení či zápisu. Na základě těchto faktorů je vhodné zvolit
+paměť, která nám bude dostačovat pro řešení našeho problému a bude mít možná co
+nejmenší spotřebu. Například paměť RAM má menší spotřebu než paměť Flash. Tyto
+rozdíly jsou však téměř zanedbatelné.
+
+\subsection*{Periferie}
+
+Některé periferie nemusí být v aplikaci použiti, je proto vhodné vypnout jejich
+hodinový signál, čímž periferii vypneme. V opačném případě, že periferii lze
+použít pro řešení problému aplikace, je vhodné tuto periferii použít. Jak již
+bylo zmíněno, jádro je nejvíce náročné na energie a je tedy vhodné
+minimalizovat práci jádra.
+
+\section{Klíčové pojmy}
+
+TODO
 
 \section{Řízení spotřeby}
 
-V této sekci budou popsány jednotlivé režimy napájení a funkcionalita
-jednotlivých modulů v těchto režimech.
+V této sekci jsou popsány jednotlivé režimy napájení, které umožňuje platforma
+FITkit3, a funkcionalita jednotlivých modulů v těchto režimech.
 
 \subsection{Režimy napájení}
 
-Řadič správy napájení nabízí různé možnosti, pro optimalizaci spotřeby energie
-na základě požadované úrovně funkčnosti.
-
-Podle nároků na režim zastavení aplikace existují různé režimy, které umožňují
-zachování stavu, částečné vypnutí nebo úplné vypnutí vybraných logických
-obvodů, případně i paměti. Stavy I/O (vstupy a výstupy) jsou zachovány ve všech
+Mikrokontrolér obsahuje řadič správy napájení, který nabízí různé možnosti, jak
+řídit spotřebu energie. Tato úspora je na základě požadované úrovně funkčnosti,
+například zda je třeba zachovávat stav mikrokontroléru, případně vypnutí
+logických obvodů. Stavy I/O (vstupy a výstupy) jsou však zachovány ve všech
 režimech.
+
+Na základě těchto nároků je zvolen jeden z existujících režimů. Tyto režimy
+jsou děleny na základě ůrovně spotřeby, kdy agresivnější režimy omezí více
+funkcionality.
 
 Existují tři hlavní režimy činnosti: běhový (run), čekací (wait), zastavovací
 (stop). Pomocí instrukce WFI (Wait For Interrupt) se čip přepne do čekacího
