@@ -119,15 +119,55 @@ sběrnice.
     \hline
     Run & Regulátor napětí v režimu nízké spotřeby (dostatek energie pro
     provoz při snížené frekvenci). Snížená frekvence režimu přístupu Flash.
-    LVD vypnuto. Interní oscilátor poskytuje nízkovýkonový zdroj pro jádro,
-    sběrnici a taky periferií \\
+    LVD vypnuto. Interní oscilátor poskytuje nízkovýkonový 4 MHz zdroj pro
+    jádro, sběrnici a také periferie \\
     \hline
     Wait & Stejné jako run s jádrem v režimu spánku \\
     \hline
     Stop & Čip v statickém stavu, vypnutý provoz LVD. Režim nejnižší spotřeby
     ADC a funkčním přerušením pinů. Periferie nefungují, lze využít RTC,
-    CMP,... NVIC je zakázán, AWIC k probuzení z přerušní. \\
+    CMP,... NVIC je zakázán, AWIC k probuzení z přerušení. \\
     \hline
 \end{tabularx}
+
+\subsection{Low Leakage a Very Low Leakage}
+
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.13\textwidth}|X|}
+    \hline
+    \textbf{Režim} & \textbf{Popis} \\
+    \hline
+    Low Leakage Stop & Stav zachování režimu napájení. Většina periferií v
+    režimu zachování stavu (zastavené hodiny). NVIC zakázáno. LLWU k probuzení.
+    \\
+    \hline
+    Very Low Leakage Stop3 & Většina periferií deaktivována. NVIC zakázáno.
+    LLWU k probuzení. SRAM\_U a SRAM\_L zapnuté (obsah zachován) \\
+    \hline
+    Very Low Leakage Stop2 & Většina periferií deaktivována. NVIC zakázáno.
+    LLWU k probuzení. SRAM\_L vypnutý. Část SRAM\_U zapnutá (obsah zachován). \\
+    \hline
+    Very Low Leakage Stop1 & Většina periferií deaktivována. NVIC zakázáno.
+    LLWU k probuzení. Všechny SRAM\_U a SRAM\_L jsou vypnuté 32B soubor
+    systémového registru a 32B soubor registru VBAT napájeny (data kritická
+    pro zákazníky) \\
+    \hline
+\end{tabularx}
+
+\newpage
+
+\section{Přechody mezi režimy}
+
+Přechody mezi režimy hezky znázorňuje následující stavový diagram. Z diagramu
+lze vidět, že po resetu je mikrokontrolér v režimu Run, ze kterého poté může
+přecházet do jednotlivých režimů. Navíc jsou ještě přechody mezi stavem Very
+Low Power Run a jeho odpovídajícími Wait a Stop režimy. Z režimu VLPR lze také
+přejít do režimů Very Low Leakage StopN (VLLS3, VLLS2, VLLS1) a Low Leakage
+Stop (LLS).
+
+\includegraphics[width=1.0\textwidth]{power-modes.png}
+
+Pro přechod do jiného režimu se využívá instrukce \texttt{WFI}, která se z C
+programu volá pomocí funkce \texttt{__WFI()}. Na základě nastavených hodnot
+se přepne do odpovídajícího režimu.
 
 \end{document}
