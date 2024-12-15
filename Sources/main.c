@@ -94,10 +94,25 @@ void wait_mode(void) {
 
 /// @brief Enters stop mode corresponding to given value
 /// @param mode stop mode type based on STOPM in SMC_PMCTRL
+/// 0 Normal Stop
+/// 2 Low-Power Stop
+/// 3 Low-Leakage Stop
+/// 4 Very-Low-Leakage Stop
 void stop_mode(int mode) {
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 	SMC->PMCTRL = SMC_PMCTRL_STOPM(mode);
     wfi_call = true;
+}
+
+/// @brief Enters the Very Low Leakage stop mode with corresponding sub-mode
+/// @param sub_mode sub mode representing which VLLS to use
+/// b001 VLLS1
+/// b010 VLLS2
+/// b011 VLLS3
+void vlls_mode(int sub_mode) {
+    SMC_VLLSCTRL &= ~0x7;
+    SMC_VLLSCTRL |= 0x3;
+    stop_mode(4);
 }
 
 /// @brief Buttons interupt handler
@@ -106,7 +121,7 @@ void PORTE_IRQHandler(void) {
 
     // Very-low-leakage stop (VLLS) on right press
     if (PORTE->ISFR & BTN_RIGHT) {
-        stop_mode(4);
+        vlls_mode(1);
     }
     // Low-leakage stop (LLS)
     if (PORTE->ISFR & BTN_DOWN) {

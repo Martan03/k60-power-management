@@ -4,6 +4,7 @@
 \usepackage[czech]{babel}
 \usepackage{csquotes}
 \usepackage{tabularx}
+\usepackage{changepage}
 
 \title{IMP - Řízení spotřeby energie mikrokontroléru}
 \author{Martin Slezák (xsleza26)}
@@ -64,10 +65,6 @@ hodinový signál, čímž periferii vypneme. V opačném případě, že perife
 použít pro řešení problému aplikace, je vhodné tuto periferii použít. Jak již
 bylo zmíněno, jádro je nejvíce náročné na energie a je tedy vhodné
 minimalizovat práci jádra.
-
-\section{Klíčové pojmy}
-
-TODO
 
 \section{Řízení spotřeby}
 
@@ -144,7 +141,7 @@ sběrnice.
     LLWU k probuzení. SRAM\_U a SRAM\_L zapnuté (obsah zachován) \\
     \hline
     Very Low Leakage Stop2 & Většina periferií deaktivována. NVIC zakázáno.
-    LLWU k probuzení. SRAM\_L vypnutý. Část SRAM\_U zapnutá (obsah zachován). \\
+    LLWU k probuzení. SRAM\_L vypnutý. Část SRAM\_U zapnutá (obsah zachován).\\
     \hline
     Very Low Leakage Stop1 & Většina periferií deaktivována. NVIC zakázáno.
     LLWU k probuzení. Všechny SRAM\_U a SRAM\_L jsou vypnuté 32B soubor
@@ -166,8 +163,77 @@ Stop (LLS).
 
 \includegraphics[width=1.0\textwidth]{power-modes.png}
 
-Pro přechod do jiného režimu se využívá instrukce \texttt{WFI}, která se z C
-programu volá pomocí funkce \texttt{__WFI()}. Na základě nastavených hodnot
+Pro přechod do režimů Wait a Stop se využívá instrukce \texttt{WFI}, která se z
+C programu volá pomocí funkce \texttt{\_\_WFI()}. Na základě nastavených hodnot
 se přepne do odpovídajícího režimu.
+
+\newpage
+\section{Provoz modudů v režimech nízké spotřeby}
+
+Následující tabulka ukazuje funkcionalitu jednotlivých modulů, zatímoc je čip
+v režimu nízko spotřeby.
+
+Návrat do režimu Run je proveden automaticky po přijmutí přerušení, přerušení
+probuzení nebo reset probuzení. Čím hlubší režim spánku, tím je sice menší
+spotřeba, ale zároveň i trvá déle mikrokontrolér probudit. Například jestliže
+se vypne generátor hodin, trvá nějakou dobu, než bude produkovat stabilní
+hodinový signál. Z nejhlubšího spánku se mikrokontrolér může probouzet velmi
+dlouho, třeba i stovky \(\mu s\).
+
+\subsection*{Použité názvy}
+\begin{itemize}
+    \item \textbf{FF} = Full Functionality (plná funkčnost)
+    \item \textbf{static} = stavy registrů a pamětí jsou zachovány
+    \item \textbf{powered} = paměť je napájena pro zachování obsahu
+    \item \textbf{LP} = Low Power - Flash má stav nízké spotřeby uchovávající
+        konfigurační registry pro podporu rychlejšího probuzení
+    \item \textbf{OFF} = modul není napájen, po probuzení je ve stavu Reset
+    \item \textbf{wakeup} = modul může sloužit jako zdroj probuzení čipu
+\end{itemize}
+
+\begin{table}[h]
+\begin{adjustwidth}{-2.8cm}{1cm}
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+    \hline
+    \textbf{Modul} & \textbf{Stop} & \textbf{VLPR} & \textbf{VLPW} &
+    \textbf{VLPS} & \textbf{LLS} & \textbf{VLLSx} \\
+    \hline
+    NVIC & static & FF & FF & static & static & OFF \\
+    \hline
+    Ovladač režimů & FF & FF & FF & FF & FF & FF \\
+    \hline
+    LLWU & static & static & static & static & FF & FF \\
+    \hline
+    Regulátor & ON & LP & LP & LP & LP & LP \\
+    \hline
+    Hodiny jádra & OFF & 4 MHz max & OFF & OFF & OFF & OFF \\
+    \hline
+    Systémové hodiny & OFF & 4 MHz max & 4 MHz max & OFF & OFF & OFF \\
+    \hline
+    Hodiny sběrnice & OFF & 4 MHz max & 4 MHz max & OFF & OFF & OFF \\
+    \hline
+    Flash & powered & 1 MHz max & LP & LP & OFF & OFF \\
+    \hline
+    Část SRAM\_U & LP & LP & LP & LP & LP & LP (VLLS3,2), OFF \\
+    \hline
+    RTC & FF & FF & FF & FF & FF & FF \\
+    \hline
+    ADC & Interní hodiny & FF & FF & Interní hodiny & static & OFF \\
+    \hline
+    GPIO & wakeup & FF & FF & wakeup & static & OFF \\
+    \hline
+\end{tabular}
+\end{adjustwidth}
+\caption{Tabulka provozu některých modulů v režimech nízké spotřeby}
+\end{table}
+
+\begin{thebibliography}{9}
+
+\bibitem{reference-manual} Refereční manuál K60 Sub-Family, Kinetis.
+\url{https://www.digikey.jp/htmldatasheets/production/1228931/0/0/1/K60-LQ-MD10-Ref-Manual.pdf}
+
+\bibitem{imp-lectures} Přednášky předmětu IMP, VUT FIT
+
+\end{thebibliography}
 
 \end{document}
