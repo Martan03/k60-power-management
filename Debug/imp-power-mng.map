@@ -145,7 +145,7 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
  .FlashConfig   0x00000400       0x10 ./Project_Settings/Startup_Code/startup_MK60D10.o
                 0x00000410                . = ALIGN (0x4)
 
-.text           0x00000410      0x568
+.text           0x00000410      0x5c0
                 0x00000410                . = ALIGN (0x4)
  *(.text)
  .text          0x00000410       0x54 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
@@ -275,123 +275,123 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
  .text.beep     0x00000578       0x54 ./Sources/main.o
                 0x00000578                beep
  .text.mcu_init
-                0x000005cc       0x4c ./Sources/main.o
+                0x000005cc       0x60 ./Sources/main.o
                 0x000005cc                mcu_init
  .text.ports_init
-                0x00000618       0xc4 ./Sources/main.o
-                0x00000618                ports_init
+                0x0000062c       0xc4 ./Sources/main.o
+                0x0000062c                ports_init
  .text.wait_mode
-                0x000006dc       0x28 ./Sources/main.o
-                0x000006dc                wait_mode
+                0x000006f0       0x28 ./Sources/main.o
+                0x000006f0                wait_mode
  .text.stop_mode
-                0x00000704       0x40 ./Sources/main.o
-                0x00000704                stop_mode
+                0x00000718       0x40 ./Sources/main.o
+                0x00000718                stop_mode
  .text.vlls_mode
-                0x00000744       0x38 ./Sources/main.o
-                0x00000744                vlls_mode
+                0x00000758       0x44 ./Sources/main.o
+                0x00000758                vlls_mode
  .text.PORTE_IRQHandler
-                0x0000077c       0x90 ./Sources/main.o
-                0x0000077c                PORTE_IRQHandler
- .text.main     0x0000080c       0x88 ./Sources/main.o
-                0x0000080c                main
+                0x0000079c       0x90 ./Sources/main.o
+                0x0000079c                PORTE_IRQHandler
+ .text.main     0x0000082c       0xc0 ./Sources/main.o
+                0x0000082c                main
  .text.SystemInit
-                0x00000894       0x28 ./Project_Settings/Startup_Code/system_MK60D10.o
-                0x00000894                SystemInit
- .text.exit     0x000008bc       0x28 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-exit.o)
-                0x000008bc                exit
+                0x000008ec       0x28 ./Project_Settings/Startup_Code/system_MK60D10.o
+                0x000008ec                SystemInit
+ .text.exit     0x00000914       0x28 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-exit.o)
+                0x00000914                exit
  .text.__libc_init_array
-                0x000008e4       0x4c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-init.o)
-                0x000008e4                __libc_init_array
- .text.memset   0x00000930       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memset.o)
-                0x00000930                memset
- .text._exit    0x00000940        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(_exit.o)
-                0x00000940                _exit
+                0x0000093c       0x4c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-init.o)
+                0x0000093c                __libc_init_array
+ .text.memset   0x00000988       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memset.o)
+                0x00000988                memset
+ .text._exit    0x00000998        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(_exit.o)
+                0x00000998                _exit
  *(.rodata)
- .rodata        0x00000944       0x14 ./Sources/main.o
+ .rodata        0x0000099c       0x14 ./Sources/main.o
  *(.rodata*)
  .rodata.str1.1
-                0x00000958        0x2 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
- *fill*         0x0000095a        0x2 
+                0x000009b0        0x2 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
+ *fill*         0x000009b2        0x2 
  .rodata._global_impure_ptr
-                0x0000095c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
-                0x0000095c                _global_impure_ptr
+                0x000009b4        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
+                0x000009b4                _global_impure_ptr
  *(.glue_7)
  .glue_7        0x00000000        0x0 linker stubs
  *(.glue_7t)
  .glue_7t       0x00000000        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x00000960        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
+ .eh_frame      0x000009b8        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
  *(.init)
- .init          0x00000960        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
-                0x00000960                _init
- .init          0x00000964        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
+ .init          0x000009b8        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
+                0x000009b8                _init
+ .init          0x000009bc        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
  *(.fini)
- .fini          0x0000096c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
-                0x0000096c                _fini
- .fini          0x00000970        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
-                0x00000978                . = ALIGN (0x4)
+ .fini          0x000009c4        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
+                0x000009c4                _fini
+ .fini          0x000009c8        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
+                0x000009d0                . = ALIGN (0x4)
 
-.vfp11_veneer   0x00000978        0x0
+.vfp11_veneer   0x000009d0        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x00000978        0x0
+.v4_bx          0x000009d0        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00000978        0x0
+.iplt           0x000009d0        0x0
  .iplt          0x00000000        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x00000978        0x8
-                0x00000978                __exidx_start = .
+.ARM            0x000009d0        0x8
+                0x000009d0                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x00000978        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
-                0x00000980                __exidx_end = .
+ .ARM.exidx     0x000009d0        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+                0x000009d8                __exidx_end = .
 
-.rel.dyn        0x00000980        0x0
+.rel.dyn        0x000009d8        0x0
  .rel.iplt      0x00000000        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
-.ctors          0x00000980        0x0
-                0x00000980                __CTOR_LIST__ = .
+.ctors          0x000009d8        0x0
+                0x000009d8                __CTOR_LIST__ = .
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
-                0x00000980                __CTOR_END__ = .
+                0x000009d8                __CTOR_END__ = .
 
-.dtors          0x00000980        0x0
-                0x00000980                __DTOR_LIST__ = .
+.dtors          0x000009d8        0x0
+                0x000009d8                __DTOR_LIST__ = .
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x00000980                __DTOR_END__ = .
+                0x000009d8                __DTOR_END__ = .
 
-.preinit_array  0x00000980        0x0
-                0x00000980                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x000009d8        0x0
+                0x000009d8                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x00000980                PROVIDE (__preinit_array_end, .)
+                0x000009d8                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x00000980        0x4
-                0x00000980                PROVIDE (__init_array_start, .)
+.init_array     0x000009d8        0x4
+                0x000009d8                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array*)
- .init_array    0x00000980        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
-                0x00000984                PROVIDE (__init_array_end, .)
+ .init_array    0x000009d8        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
+                0x000009dc                PROVIDE (__init_array_end, .)
 
-.fini_array     0x00000984        0x4
-                0x00000984                PROVIDE (__fini_array_start, .)
+.fini_array     0x000009dc        0x4
+                0x000009dc                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x00000984        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
-                0x00000988                PROVIDE (__fini_array_end, .)
-                0x00000988                __etext = .
-                0x00000988                __DATA_ROM = .
+ .fini_array    0x000009dc        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
+                0x000009e0                PROVIDE (__fini_array_end, .)
+                0x000009e0                __etext = .
+                0x000009e0                __DATA_ROM = .
 
-.data           0x1fff0000       0x64 load address 0x00000988
+.data           0x1fff0000       0x64 load address 0x000009e0
                 0x1fff0000                . = ALIGN (0x4)
                 0x1fff0000                __DATA_RAM = .
                 0x1fff0000                __data_start__ = .
@@ -404,12 +404,12 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
  .jcr           0x1fff0060        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtend.o
                 0x1fff0064                . = ALIGN (0x4)
                 0x1fff0064                __data_end__ = .
-                0x000009ec                __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
+                0x00000a44                __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
 
-.igot.plt       0x1fff0064        0x0 load address 0x000009ec
+.igot.plt       0x1fff0064        0x0 load address 0x00000a44
  .igot.plt      0x00000000        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
-.bss            0x1fff0064       0x20 load address 0x000009ec
+.bss            0x1fff0064       0x20 load address 0x00000a44
                 0x1fff0064                . = ALIGN (0x4)
                 0x1fff0064                __START_BSS = .
                 0x1fff0064                __bss_start__ = .
@@ -418,9 +418,11 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
  *(.bss*)
  .bss.wfi_call  0x1fff0080        0x1 ./Sources/main.o
                 0x1fff0080                wfi_call
+ .bss.vlls      0x1fff0081        0x1 ./Sources/main.o
+                0x1fff0081                vlls
  *(COMMON)
                 0x1fff0084                . = ALIGN (0x4)
- *fill*         0x1fff0081        0x3 
+ *fill*         0x1fff0082        0x2 
                 0x1fff0084                __bss_end__ = .
                 0x1fff0084                __END_BSS = .
 
@@ -473,10 +475,10 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x00000001                ASSERT ((__StackLimit >= __HeapLimit), region m_data_2 overflowed with stack and heap)
 OUTPUT(imp-power-mng.elf elf32-littlearm)
 
-.debug_info     0x00000000     0x1222
- .debug_info    0x00000000      0xd0a ./Sources/main.o
- .debug_info    0x00000d0a       0x7b ./Project_Settings/Startup_Code/startup_MK60D10.o
- .debug_info    0x00000d85      0x49d ./Project_Settings/Startup_Code/system_MK60D10.o
+.debug_info     0x00000000     0x1270
+ .debug_info    0x00000000      0xd58 ./Sources/main.o
+ .debug_info    0x00000d58       0x7b ./Project_Settings/Startup_Code/startup_MK60D10.o
+ .debug_info    0x00000dd3      0x49d ./Project_Settings/Startup_Code/system_MK60D10.o
 
 .debug_abbrev   0x00000000      0x329
  .debug_abbrev  0x00000000      0x1fb ./Sources/main.o
@@ -513,15 +515,15 @@ OUTPUT(imp-power-mng.elf elf32-littlearm)
  .debug_macro   0x000195b7       0x88 ./Project_Settings/Startup_Code/system_MK60D10.o
  .debug_macro   0x0001963f       0x65 ./Project_Settings/Startup_Code/system_MK60D10.o
 
-.debug_line     0x00000000      0x5d4
- .debug_line    0x00000000      0x305 ./Sources/main.o
- .debug_line    0x00000305       0x78 ./Project_Settings/Startup_Code/startup_MK60D10.o
- .debug_line    0x0000037d      0x257 ./Project_Settings/Startup_Code/system_MK60D10.o
+.debug_line     0x00000000      0x5e0
+ .debug_line    0x00000000      0x311 ./Sources/main.o
+ .debug_line    0x00000311       0x78 ./Project_Settings/Startup_Code/startup_MK60D10.o
+ .debug_line    0x00000389      0x257 ./Project_Settings/Startup_Code/system_MK60D10.o
 
-.debug_str      0x00000000    0x90bca
- .debug_str     0x00000000    0x90b53 ./Sources/main.o
-                              0x90d03 (size before relaxing)
- .debug_str     0x00090b53       0x77 ./Project_Settings/Startup_Code/system_MK60D10.o
+.debug_str      0x00000000    0x90bec
+ .debug_str     0x00000000    0x90b75 ./Sources/main.o
+                              0x90d25 (size before relaxing)
+ .debug_str     0x00090b75       0x77 ./Project_Settings/Startup_Code/system_MK60D10.o
                               0x90468 (size before relaxing)
 
 .comment        0x00000000       0x70

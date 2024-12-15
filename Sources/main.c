@@ -29,6 +29,7 @@
 #define SPK 0x10
 
 volatile bool wfi_call = false;
+volatile bool vlls = false;
 
 /// @brief Delays the execution
 void delay(long long bound) {
@@ -50,6 +51,8 @@ void mcu_init(void)  {
     MCG_C4 |= ( MCG_C4_DMX32_MASK | MCG_C4_DRST_DRS(0x01) );
     SIM_CLKDIV1 |= SIM_CLKDIV1_OUTDIV1(0x00);
     WDOG_STCTRLH &= ~WDOG_STCTRLH_WDOGEN_MASK;
+    // Enables VLP, LLS and VLLSx
+    SMC_PMPROT |= 0x2A;
 }
 
 /// @brief Initializes ports on the MCU
@@ -94,10 +97,10 @@ void wait_mode(void) {
 
 /// @brief Enters stop mode corresponding to given value
 /// @param mode stop mode type based on STOPM in SMC_PMCTRL
-/// 0 Normal Stop
-/// 2 Low-Power Stop
-/// 3 Low-Leakage Stop
-/// 4 Very-Low-Leakage Stop
+/// b000 Normal Stop
+/// b010 Low-Power Stop
+/// b011 Low-Leakage Stop
+/// b100 Very-Low-Leakage Stop
 void stop_mode(int mode) {
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 	SMC->PMCTRL = SMC_PMCTRL_STOPM(mode);
@@ -111,8 +114,9 @@ void stop_mode(int mode) {
 /// b011 VLLS3
 void vlls_mode(int sub_mode) {
     SMC_VLLSCTRL &= ~0x7;
-    SMC_VLLSCTRL |= 0x3;
+    SMC_VLLSCTRL |= sub_mode;
     stop_mode(4);
+    vlls = true;
 }
 
 /// @brief Buttons interupt handler
@@ -160,6 +164,11 @@ int main(void) {
         if (wfi_call) {
             __WFI();
             wfi_call = false;
+        }
+        // Acknowledge the wakeup from VLLS
+        if (vlls && !wfi_call) {
+            PMC_REGSC |= 1 << 3;
+            vlls = false;
         }
     }
 

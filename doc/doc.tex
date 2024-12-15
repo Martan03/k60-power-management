@@ -66,6 +66,53 @@ použít pro řešení problému aplikace, je vhodné tuto periferii použít. J
 bylo zmíněno, jádro je nejvíce náročné na energie a je tedy vhodné
 minimalizovat práci jádra.
 
+\section{Základní pojmy}
+
+\subsection{Nested Vectored Interrupt Controller (NVIC)}
+
+NVIC je klíčová komponenta ARM procesorů, která řídí zpracovávání přerušení
+v procesoru.
+
+\subsection{Low-Leakage Wakeup Unit (LLWU)}
+
+LLWU je periferní modul na čipu, který umožňuje interní periferie a externí
+vstupní piny jako zdroj probuzení z režimů Low-Leakage (LLS a VLLSx).
+
+\subsection{System Mode Controller (SMC)}
+
+SMC (řadič systémového režimu) je zodpovědný za řazení systému do a ze všech
+režimů Stop a Run s nízkou spotřebou. Monitoruje události pro spouštění
+přechodů mezi režimy napájení a zároveň ovládá napájení, hodiny a paměti
+systému, aby se dosáhlo spotřeby energie a funkčnosti daného režimu.
+
+\subsection{General Purpose Input/Output (GPIO)}
+
+GPIO referuje na piny na mikrokontroléru, které mohou být konfigurovány jako
+vstup nebo výstup pro různé digitální signály.
+
+\subsection{Analog-to-Digital Converter (ADC)}
+
+ADC je periferní zařízení v mikrokontrolérech, které převádí analogový signál
+na digitální hodnotu, kterou lze zpracovat pomocí mikrokontroléru.
+
+\subsection{Real-Time Clock (RTC)}
+
+RTC je periferie pro měření času v mikrokontrolérech, která uchovává aktální
+datum a čas, i když je mikrokontrolér vypnutý. Využívá pro to vyhrazený zdroj
+hodinového signálu s nízkou spotřebou.
+
+\subsection{SRAM\_U a SRAM\_L}
+
+Jedná se o různé sekce statické RAM v mikrokontroléru, typicky rozlišné na
+základě jejich lokace nebo použití.
+\begin{itemize}
+    \item \textbf{SRAM\_U} (Upper SRAM) = horní část SRAM, typicky užívaná pro
+        univerzální ukládání dat, proměnných a zásobníkových operací
+    \item \textbf{SRAM\_L} (Lower SRAM) = spodní část SRAM, využíváná pro
+        speciální účely, jako jsou spouštěcí data, konfigurace nebo specifické
+        systémové proměnné
+\end{itemize}
+
 \section{Řízení spotřeby}
 
 Mikrokontrolér obsahuje řadič správy napájení, který nabízí různé možnosti, jak
@@ -168,7 +215,7 @@ C programu volá pomocí funkce \texttt{\_\_WFI()}. Na základě nastavených ho
 se přepne do odpovídajícího režimu.
 
 \newpage
-\section{Provoz modudů v režimech nízké spotřeby}
+\section{Provoz modulů v režimech nízké spotřeby}
 
 Následující tabulka ukazuje funkcionalitu jednotlivých modulů, zatímoc je čip
 v režimu nízko spotřeby.
@@ -227,6 +274,25 @@ dlouho, třeba i stovky \(\mu s\).
 \caption{Tabulka provozu některých modulů v režimech nízké spotřeby}
 \end{table}
 
+\newpage
+\section{Implementace}
+
+Program implementuje přechody mezi některými režimy nízké spotřeby. Přepnutí
+do režimu nízké spotřeby lze pomocí tlačítka. Tlačítka vyvolají přerušení,
+ve kterém se poté nastaví hodnoty do specifických registrů. Konkrétní režim pro
+konkrétní tlačítko je dán tímto seznamem:
+\begin{itemize}
+    \item SW2 - Very-Low-Leakage Stop1
+    \item SW3 - Low-Leakage Stop
+    \item SW4 - Low-Power Stop
+    \item SW5 - Normal Stop
+    \item SW6 - Normal Wait
+\end{itemize}
+
+V hlavním cyklu programu je kód pro blikání LED diody na desce mikrokontroléru.
+Díky této LED lze poznat, zda jádro běží či nikoliv.
+
+\newpage
 \begin{thebibliography}{9}
 
 \bibitem{reference-manual} Refereční manuál K60 Sub-Family, Kinetis.
